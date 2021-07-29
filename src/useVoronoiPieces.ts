@@ -34,6 +34,16 @@ export const useVoronoiPieces = ({
     [width, height],
   ]);
 
+  const randomXY = (averageX: number, averageY: number) => {
+    const randoX = Math.round((Math.random() * 300));
+    const randoY = Math.round((Math.random() * 300));
+
+    return {
+      x: averageX > 50 ? randoX * 1 : randoX * -1,
+      y: averageY > 50 ? randoY * 1 : randoX * -1,
+    }
+  }
+
   const pieces = extent(vertices).polygons();
 
   const shatteredPieces = pieces.map((piece) => {
@@ -50,11 +60,11 @@ export const useVoronoiPieces = ({
       .map((point) => `${Math.ceil((point[0] / width) * 100)}% ${Math.ceil((point[1] / height) * 100)}%`)
       .join(', ');
 
-    const xValue = averageX > 50 ? Math.round(Math.random()) * 200 : Math.round(Math.random()) * -200;
-    const yValue = averageY > 50 ? Math.round(Math.random()) * 200 : Math.round(Math.random()) * -200;
+    const { x, y } = randomXY(averageX, averageY)
+
     return {
-      x: xValue,
-      y: yValue,
+      x,
+      y,
       clipPath: `polygon(${xyPercentages})`,
     }
   });
