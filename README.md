@@ -1,2 +1,1 @@
-# react-sand-box
-playground in react
+React Sand-Box
